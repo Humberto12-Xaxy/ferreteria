@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../core/core.dart';
-import '../features/presentation/screens/screens.dart';
+import '../features/home/presentacion/screens/screens.dart';
 
 class PointSaleApp extends StatelessWidget {
   const PointSaleApp({super.key});
