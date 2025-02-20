@@ -1,7 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:punto_de_venta/features/presentation/widgets/custom_data_table.dart';
+
+import '../../widgets/widgets.dart';
 
 class Home extends StatelessWidget {
-  const Home({super.key});
+  Home({super.key});
+
+  final List<DataColumn> columns = [
+    DataColumn(label: Text('Nombre')),
+    DataColumn(label: Text('Precio')),
+    DataColumn(label: Text('Cantidad')),
+    DataColumn(label: Text('Acciones')),
+  ];
+
+  final List<DataRow> rows = List.generate(
+    50,
+    (int index) => DataRow(
+      cells: [
+        DataCell(Text('Producto $index')),
+        DataCell(Text('\$${index * 100}')),
+        DataCell(Text('$index')),
+        DataCell(IconButton(icon: Icon(Icons.add), onPressed: () {})),
+      ],
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -10,44 +32,23 @@ class Home extends StatelessWidget {
         title: const Text('Tres Hermanas'),
         leading: Icon(Icons.construction),
         actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Theme.of(context).colorScheme.secondary,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [Icon(Icons.description), Text('Inventario')],
-              ),
-              onPressed: () {},
-            ),
+          CustomButton(
+            text: 'Inventario',
+            icon: Icons.description,
+            onPressed: () {},
+            padding: 8.0,
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Theme.of(context).colorScheme.secondary,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [Icon(Icons.description), Text('Reportes')],
-              ),
-              onPressed: () {},
-            ),
+          CustomButton(
+            text: 'Reportes',
+            icon: Icons.description,
+            onPressed: () {},
+            padding: 8.0,
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 100.0),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Theme.of(context).colorScheme.secondary,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [Icon(Icons.assured_workload), Text('Corte de caja')],
-              ),
-              onPressed: () {},
-            ),
+          CustomButton(
+            text: 'Corte de caja',
+            icon: Icons.assured_workload,
+            onPressed: () {},
+            padding: 150.0,
           ),
         ],
       ),
@@ -75,6 +76,7 @@ class Home extends StatelessWidget {
                   Container(
                     margin: EdgeInsets.all(30),
                     child: TextField(
+                      focusNode: FocusNode(),
                       decoration: InputDecoration(
                         label: Text('Buscar'),
                         border: OutlineInputBorder(
@@ -86,20 +88,10 @@ class Home extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: 10,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          title: Text('Producto $index'),
-                          subtitle: Text('Precio: \$${index * 100}'),
-                          trailing: IconButton(
-                            icon: Icon(Icons.add),
-                            onPressed: () {},
-                          ),
-                        );
-                      },
-                    ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    width: double.infinity,
+                    child: CustomDataTable(columns: columns, rows: rows),
                   ),
                 ],
               ),
@@ -147,9 +139,23 @@ class Home extends StatelessWidget {
                         return ListTile(
                           title: Text('Producto $index'),
                           subtitle: Text('Precio: \$${index * 100}'),
-                          trailing: IconButton(
-                            icon: Icon(Icons.add),
-                            onPressed: () {},
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              IconButton(
+                                icon: Icon(Icons.add),
+                                onPressed: () {},
+                              ),
+                              Text('1'),
+                              IconButton(
+                                icon: Icon(Icons.remove),
+                                onPressed: () {},
+                              ),
+                              IconButton(
+                                icon: Icon(Icons.delete),
+                                onPressed: () {},
+                              ),
+                            ],
                           ),
                         );
                       },
