@@ -1,6 +1,6 @@
 {
-    "name": "punto_de_venta",
-    "short_name": "punto_de_venta",
+    "name": "prueba",
+    "short_name": "prueba",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

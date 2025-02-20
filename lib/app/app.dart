@@ -20,7 +20,7 @@ class PointSaleApp extends StatelessWidget {
         ),
         scaffoldBackgroundColor: Colors.grey[200],
         appBarTheme: const AppBarTheme(
-          actionsPadding: EdgeInsets.only(right: 30),
+          // actionsPadding: EdgeInsets.only(right: 30),
           backgroundColor: AppColors.primaryColor,
           titleTextStyle: TextStyle(color: Colors.white, fontSize: 30),
           iconTheme: IconThemeData(color: Colors.white, size: 40),
