@@ -26,7 +26,7 @@ class PointSaleApp extends StatelessWidget {
           iconTheme: IconThemeData(color: Colors.white, size: 40),
         ),
       ),
-      home: const Home(),
+      home: Home(),
     );
   }
 }

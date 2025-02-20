@@ -4,26 +4,31 @@ class CustomButton extends StatelessWidget {
   final String text;
   final Function onPressed;
   final IconData icon;
+  final double padding;
 
   const CustomButton({
-    required Key key,
+    super.key,
     required this.text,
     required this.onPressed,
     required this.icon,
-  }) : super(key: key);
+    required this.padding,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: EdgeInsets.only(left: padding),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: Theme.of(context).colorScheme.secondary,
         ),
-        onPressed: onPressed(),
+        onPressed: () {},
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [Icon(icon), Text(text)],
+          children: [
+            Icon(icon, color: Colors.white),
+            Text(text, style: TextStyle(fontSize: 15, color: Colors.white)),
+          ],
         ),
       ),
     );
