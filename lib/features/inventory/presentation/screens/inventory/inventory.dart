@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:prueba/config/router/app_router.dart';
 import 'package:prueba/core/core.dart';
-
 
 import 'widgets/table_products_widget.dart';
 
-class Inventory extends StatelessWidget {
+class Inventory extends ConsumerWidget {
   const Inventory({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: Column(
         children: [
@@ -17,7 +18,9 @@ class Inventory extends StatelessWidget {
               buttons: [
                 CustomButton(
                   text: 'Punto de venta',
-                  onPressed: () {},
+                  onPressed: () {
+                    ref.read(appRouterProvider).pop();
+                  },
                   icon: Icons.store,
                   marginLeft: 10,
                 ),

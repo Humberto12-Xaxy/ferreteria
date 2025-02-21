@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../../core/components/widgets.dart';
 import 'widgets/shopping_car_widget.dart';
@@ -19,7 +20,9 @@ class Home extends StatelessWidget {
                 CustomButton(
                   icon: Icons.inventory_outlined,
                   text: 'Inventario',
-                  onPressed: () {},
+                  onPressed: () {
+                    context.push('/inventory');
+                  },
                   marginLeft: 10.0,
                 ),
                 CustomButton(

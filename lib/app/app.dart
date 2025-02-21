@@ -13,7 +13,6 @@ class PointSaleApp extends ConsumerWidget {
     final appRouter = ref.watch(appRouterProvider);
 
     return MaterialApp.router(
-      title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: AppColors.primaryColor,
@@ -23,7 +22,6 @@ class PointSaleApp extends ConsumerWidget {
         ),
         scaffoldBackgroundColor: Colors.grey[200],
         appBarTheme: const AppBarTheme(
-          // actionsPadding: EdgeInsets.only(right: 30),
           backgroundColor: AppColors.primaryColor,
           titleTextStyle: TextStyle(color: Colors.white, fontSize: 30),
           iconTheme: IconThemeData(color: Colors.white, size: 40),
@@ -31,6 +29,5 @@ class PointSaleApp extends ConsumerWidget {
       ),
       routerConfig: appRouter,
     );
-    
   }
 }
