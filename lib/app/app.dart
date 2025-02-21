@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:prueba/config/router/app_router.dart';
 
 import '../core/core.dart';
-import '../features/home/presentacion/screens/screens.dart';
 
-class PointSaleApp extends StatelessWidget {
+class PointSaleApp extends ConsumerWidget {
   const PointSaleApp({super.key});
 
   // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
+  Widget build(BuildContext context, WidgetRef ref) {
+    final appRouter = ref.watch(appRouterProvider);
+
+    return MaterialApp.router(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -26,7 +29,8 @@ class PointSaleApp extends StatelessWidget {
           iconTheme: IconThemeData(color: Colors.white, size: 40),
         ),
       ),
-      home: Home(),
+      routerConfig: appRouter,
     );
+    
   }
 }
