@@ -59,4 +59,18 @@ class ProductDataSource {
       return product;
     }
   }
+
+  Future<void> updateStocProduct(ProductEntity product) async {
+    final db = await _databaseHelper.database;
+    final productModel = ProductModel(
+        id: product.id,
+        barCode: product.barCode,
+        name: product.name,
+        price: product.price,
+        purchase: product.purchase,
+        stock: product.stock,
+        typeSale: product.typeSale);
+    await db.update('products', productModel.toMap(),
+        where: 'id=?', whereArgs: [product.id]);
+  }
 }

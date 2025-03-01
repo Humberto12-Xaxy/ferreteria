@@ -168,7 +168,9 @@ class ShoppingCarWidgetState extends ConsumerState<ShoppingCarWidget> {
                 height: 50,
                 child: CustomButton(
                     text: 'Cobrar',
-                    onPressed: () {},
+                    onPressed: () {
+                      ref.read(shoppingCarProvider.notifier).charge();
+                    },
                     icon: Icons.shopping_cart_checkout_outlined),
               ),
             ],

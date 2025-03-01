@@ -20,4 +20,9 @@ class ProductRepositoryImpl implements ProductRepository {
   Future<ProductEntity> getProductByBarCode(String barcode) async {
     return await productDataSource.getProductByBarCode(barcode);
   }
+
+  @override
+  Future<void> updateStockProduct(ProductEntity product) async {
+    return await productDataSource.updateStocProduct(product);
+  }
 }

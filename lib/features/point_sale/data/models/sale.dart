@@ -12,7 +12,7 @@ class SaleModel extends SaleEntity {
 
   Map<String, dynamic> toMap() => {
         'id': id,
-        'date': date,
+        'date': date.toIso8601String(),
         'total': total,
       };
 }

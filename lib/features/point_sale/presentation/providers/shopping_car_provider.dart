@@ -1,5 +1,6 @@
 import 'package:prueba/features/inventory/data/data.dart';
 import 'package:prueba/features/inventory/domain/domain.dart';
+import 'package:prueba/features/inventory/presentation/providers/products_providers.dart';
 import 'package:prueba/features/point_sale/data/data.dart';
 import 'package:prueba/features/point_sale/data/repository/sale_repository_impl.dart';
 import 'package:prueba/features/point_sale/domain/entities/product_sale.dart';
@@ -7,6 +8,7 @@ import 'package:prueba/features/point_sale/domain/entities/sale.dart';
 import 'package:prueba/features/point_sale/domain/use_cases/get_product_by_barcode_use_case.dart';
 import 'package:prueba/features/point_sale/domain/use_cases/register_sale_use_case.dart';
 import 'package:prueba/features/point_sale/domain/use_cases/sale_create_sale_use_case.dart';
+import 'package:prueba/features/point_sale/domain/use_cases/update_product_use_case.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'shopping_car_provider.g.dart';
@@ -89,23 +91,43 @@ class ShoppingCar extends _$ShoppingCar {
     final saleUsecase =
         SaleCreateSaleUseCase(saleRepository: saleRepositoryImpl);
 
+    final productSaleUseCase =
+        RegisterSaleUseCase(productsSalesRepository: productSaleRepositoryImpl);
+
+    final updateProductUseCase =
+        UpdateProductUseCase(productRepository: productRepository);
+
     final saleEntity = SaleEntity(
         date: DateTime(
             DateTime.now().year, DateTime.now().month, DateTime.now().day),
         total: total);
 
     final saleId = await saleUsecase.call(params: saleEntity);
-    final productSaleUseCase =
-        RegisterSaleUseCase(productsSalesRepository: productSaleRepositoryImpl);
-
-    state.map((productShopping) async {
+    for (ProductShoppingCar productShopping in state) {
       final productSaleEntity = ProductSaleEntity(
-          productId: productShopping.product.id!,
-          saleId: saleId,
-          quantity: productShopping.quantity,
-          subtotal: productShopping.subtotal);
+        productId: productShopping.product.id!,
+        saleId: saleId,
+        quantity: productShopping.quantity,
+        subtotal: productShopping.subtotal,
+      );
       await productSaleUseCase.call(params: productSaleEntity);
-    });
+
+      final productEntity = ProductEntity(
+        id: productShopping.product.id,
+        barCode: productShopping.product.barCode,
+        name: productShopping.product.name,
+        price: productShopping.product.price,
+        purchase: productShopping.product.purchase,
+        stock: (productShopping.product.stock! - productShopping.quantity),
+        typeSale: productShopping.product.typeSale,
+      );
+
+      await updateProductUseCase.call(params: productEntity);
+    }
+
+    ref.invalidate(productsProvider);
+
+    state = [];
   }
 }
 
