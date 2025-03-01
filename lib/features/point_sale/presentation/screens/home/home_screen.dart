@@ -28,7 +28,9 @@ class Home extends StatelessWidget {
                 CustomButton(
                   icon: Icons.insert_chart,
                   text: 'Reportes',
-                  onPressed: () {},
+                  onPressed: () {
+                    context.push('/reports');
+                  },
                   marginLeft: 10.0,
                 ),
                 CustomButton(

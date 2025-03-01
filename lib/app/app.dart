@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:prueba/config/router/app_router.dart';
 
-import '../core/core.dart';
+import '../config/config.dart';
 
 class PointSaleApp extends ConsumerWidget {
   const PointSaleApp({super.key});

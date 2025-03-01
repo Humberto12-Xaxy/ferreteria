@@ -64,7 +64,9 @@ class _CustomDataTableState extends State<CustomDataTable> {
       selectedRows.clear();
     }
     selectedRows.add(row);
-    setState(() {});
+    setState(() {
+      print(row);
+    });
   }
 
   @override
