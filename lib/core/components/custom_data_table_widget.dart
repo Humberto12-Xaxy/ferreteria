@@ -47,8 +47,10 @@ class _CustomDataTableState extends State<CustomDataTable> {
     if (widget.headers.isEmpty) {
       throw Exception('Headers cannot be empty');
     }
-    if (widget.headers.length != widget.rows.first.cells.length) {
-      throw Exception('Headers and rows must have the same length');
+    if (widget.rows.isNotEmpty) {
+      if (widget.headers.length != widget.rows.first.cells.length) {
+        throw Exception('Headers and rows must have the same length');
+      }
     }
 
     // _focusNode.addListener(() {
@@ -97,7 +99,9 @@ class _CustomDataTableState extends State<CustomDataTable> {
       selectedRows.clear();
     }
     selectedRows.add(row);
-    setState(() {});
+    setState(() {
+      print(row);
+    });
   }
 
   @override
@@ -139,38 +143,43 @@ class _CustomDataTableState extends State<CustomDataTable> {
               ),
             ),
             Expanded(
-                child: ListView.builder(
-              itemCount: widget.rows.length,
-              itemBuilder: (context, index) {
-                final row = widget.rows[index];
-                return InkWell(
-                  onTap: () {
-                    selectRow(row);
-                    widget.onRowSelected?.call(widget.rows[index]);
-                  },
-                  child: Row(
-                    children: row.cells
-                        .map((e) => Expanded(
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  border: border,
-                                  color: selectedRows.contains(row)
-                                      ? activeColor
-                                      : e.backgroundColor,
-                                ),
-                                padding: EdgeInsets.all(8),
-                                child: Text(
-                                  e.text,
-                                  textAlign: e.align ?? textAlign,
-                                  style: e.textStyle ?? widget.textStyle,
-                                ),
-                              ),
-                            ))
-                        .toList(),
-                  ),
-                );
-              },
-            )),
+                child: widget.rows.isEmpty
+                    ? Center(
+                        child: Text('No hay datos'),
+                      )
+                    : ListView.builder(
+                        itemCount: widget.rows.length,
+                        itemBuilder: (context, index) {
+                          final row = widget.rows[index];
+                          return InkWell(
+                            onTap: () {
+                              selectRow(row);
+                              widget.onRowSelected?.call(widget.rows[index]);
+                            },
+                            child: Row(
+                              children: row.cells
+                                  .map((e) => Expanded(
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            border: border,
+                                            color: selectedRows.contains(row)
+                                                ? activeColor
+                                                : e.backgroundColor,
+                                          ),
+                                          padding: EdgeInsets.all(8),
+                                          child: Text(
+                                            e.text,
+                                            textAlign: e.align ?? textAlign,
+                                            style:
+                                                e.textStyle ?? widget.textStyle,
+                                          ),
+                                        ),
+                                      ))
+                                  .toList(),
+                            ),
+                          );
+                        },
+                      )),
           ],
         ),
       ),
